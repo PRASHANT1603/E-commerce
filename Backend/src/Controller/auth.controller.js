@@ -45,7 +45,7 @@ export const Login = async (req, res)=>{
       if (!isPasswordValid) {
         return res.json({ message: "Invalid password" });
       } else {
-        const token = jwt.sign({ id: user._id }, process.env.jwt_secret, {
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
         res.status(200).json({ token, message: "Login successful" });
@@ -57,6 +57,25 @@ export const Login = async (req, res)=>{
     return res.status(500).json({messsage:"server error" , error: error.message});
   }
   
+}
+
+export const getUser = async(req, res)=> {
+  try{
+     const user = await User.findById(req.userId).select("-password");
+    if(!user){
+      return res.status(404).json({ message :"user not define",
+        
+      })
+    }
+    res.status(200).json(user);
+  }
+  catch(err){
+    console.log(error.response?.status);
+  console.log(error.response?.data);
+
+  }
+
+
 }
 
 // export default { register, Login };

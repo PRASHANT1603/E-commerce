@@ -7,6 +7,8 @@ const LoginPage = ()=>{
   const [data, setData] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [mobile, setMobile] = useState("");
 
 
 
@@ -21,6 +23,24 @@ const LoginPage = ()=>{
       localStorage.setItem("token", res.data.token);
       navigate("/");
     } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleRegister = async()=>{
+    try{
+      const res = await axios.post("http://localhost:5000/api/auth/register", {
+        username,
+        mobileNumber: mobile,
+        email,
+        password,
+      });
+      setData(res.data);
+      console.log(res.data);
+      // localStorage.setItem("token", res.data.token);
+      navigate("/");
+
+    }catch(err){
       console.log(err);
     }
   }
@@ -40,6 +60,29 @@ const LoginPage = ()=>{
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={handleLogin}>login</button>
+        <br />
+
+        <input
+          type="text"
+          placeholder="username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="mobile"
+          onChange={(e) => setMobile(e.target.value)}
+        />
+        <input
+          type="email"
+          placeholder="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleRegister}>Register</button>
       </div>
     </>
   );
