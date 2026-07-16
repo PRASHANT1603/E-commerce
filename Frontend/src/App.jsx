@@ -4,6 +4,7 @@ import AddProduct from './components/AddProduct.jsx'
 import LandingPage from './components/LandingPage.jsx'
 import LoginPage from './pages/login.page.jsx'
 import Navbar from './components/navbar.jsx'
+import AddToCart from "./pages/AddToCart.jsx"
 
 function App() {
  
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/add" element={<AddProduct />} />
         <Route path="/Login" element={<LoginPage />} />
+        <Route path="/cart" element={<AddToCart />} />
       </Routes>
     </>
   );

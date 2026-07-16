@@ -17,6 +17,23 @@ function LandingPage() {
     }
   };
 
+  const handleAddToCart = async (productId) => {
+    const token = localStorage.getItem("token");
+    await axios.post(
+      "http://localhost:5000/api/cart/add",
+      {
+        productId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    alert("added to cart");
+  };
+
   return (
     <div style={{ padding: "20px" }}>
       <h2>Products</h2>
@@ -54,6 +71,8 @@ function LandingPage() {
                   ))
                 : " Not available"}
             </p>
+            <button onClick={()=> handleAddToCart(item._id)}>Add to Cart</button>
+            <button>Buy Now</button>
           </div>
         ))}
       </div>
